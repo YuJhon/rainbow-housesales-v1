@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhon.rain.biz.mapper.CommunityDOMapper">
+    <resultMap id="BaseResultMap" type="com.jhon.rain.common.model.CommunityDO">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="city_code" jdbcType="VARCHAR" property="cityCode"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="city_name" jdbcType="VARCHAR" property="cityName"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, city_code, name, city_name
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from community
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="findAll" parameterType="com.jhon.rain.common.model.CommunityDO" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from community
+    </select>
+
+    <select id="selectCommunity" parameterType="com.jhon.rain.common.model.CommunityDO" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from community
+        <where>
+            <if test="id != null and id != 0">
+                and id = #{id}
+            </if>
+            <if test="name!=null and name != '' ">
+                <bind name="patten1" value="'%'+name+'%'"/>
+                and name like #{name}
+            </if>
+        </where>
+
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        DELETE FROM community
+        WHERE id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="insert" parameterType="com.jhon.rain.common.model.CommunityDO">
+        INSERT INTO community (id, city_code, name,
+                               city_name)
+        VALUES (#{id,jdbcType=INTEGER}, #{cityCode,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+                #{cityName,jdbcType=VARCHAR})
+    </insert>
+
+</mapper>

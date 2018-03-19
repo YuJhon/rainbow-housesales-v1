@@ -1,0 +1,54 @@
+spring:
+  # 数据库配置
+  druid:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost/single-house?characterEncoding-utf-8&useSSL=false
+    username: root
+    password: root
+    maxActive: 30
+    minIdle: 5
+    maxWait: 10000
+    validationQuery: SELECT 'x'
+  # 邮件服务配置
+  mail:
+    host: smtp.126.com
+    username: jiangy19@126.com
+    password: jiangyu1321
+    properties:
+      mail:
+        smtp:
+          #如果设置false，可以不设置用户名和密码，当然也得看你的对接的平台是否支持无密码进行访问的。
+          auth: true
+          #STARTTLS[1] 是对纯文本通信协议的扩展。它提供一种方式将纯文本连接升级为加密连接（TLS或SSL），而不是另外使用一个端口作加密通信。
+          starttls:
+            enable: true
+            required: true
+
+  # 渲染模板配置
+  freemarker:
+    charset: UTF-8
+    content-type: text/html;charset=UTF-8
+    expose-request-attributes: true
+    expose-session-attributes: true
+    expose-spring-macro-helpers: true
+    suffix: .ftl
+    settings:
+      datetime_format: yyyy-MM-dd HH:mm:ss
+      default_encoding: utf-8
+      auto_import: common/common.ftl as common
+
+# mybatis配置
+mybatis:
+    config-location: classpath:mybatis/mybatis-config.xml
+    type-aliases-package: com.jhon.rain.common.model
+    mapper-locations: classpath*:mapper/*.xml
+
+# 分页配置
+pagehelper:
+  helper-dialect: mysql
+  reasonable: false # 如果为true则，当前页大于总的页数时，默认去最后一页数据，如果为0或者负数，则默认取第一页
+  support-methods-arguments: true
+  params: count=countSql
+
+domain:
+  name: 127.0.0.1:8080

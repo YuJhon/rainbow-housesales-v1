@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhon.rain.biz.mapper.CommentDOMapper">
+    <resultMap id="BaseResultMap" type="com.jhon.rain.common.model.CommentDO">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="house_id" jdbcType="BIGINT" property="houseId"/>
+        <result column="create_time" jdbcType="DATE" property="createTime"/>
+        <result column="blog_id" jdbcType="INTEGER" property="blogId"/>
+        <result column="type" jdbcType="BIT" property="type"/>
+        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, content, house_id, create_time, blog_id, type, user_id
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from comment
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        DELETE FROM comment
+        WHERE id = #{id,jdbcType=BIGINT}
+    </delete>
+
+    <insert id="insert" parameterType="com.jhon.rain.common.model.CommentDO">
+        INSERT INTO comment (id, content, house_id,
+                             create_time, blog_id, type,
+                             user_id)
+        VALUES (#{id,jdbcType=BIGINT}, #{content,jdbcType=VARCHAR}, #{houseId,jdbcType=BIGINT},
+                #{createTime,jdbcType=DATE}, #{blogId,jdbcType=INTEGER}, #{type,jdbcType=BIT},
+                #{userId,jdbcType=BIGINT})
+    </insert>
+
+</mapper>
