@@ -6,9 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
 @EnableAdminServer
-@EnableDiscoveryClient
 @SpringBootApplication
 public class AdminApplication {
 
